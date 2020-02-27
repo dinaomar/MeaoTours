@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "996345771325",
+    "firebase_url": "https://buoyant-keel-121009.firebaseio.com",
+    "project_id": "buoyant-keel-121009",
+    "storage_bucket": "buoyant-keel-121009.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996345771325:android:dfb424d3822db0809b0154",
+        "android_client_info": {
+          "package_name": "com.dina.elcg.meaotours"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996345771325-6trv9osu0hjt7lcfj4gnev6f5jk3r6sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCArwgoUURWV1ULeRss9pmyx4CyG-0Bcpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996345771325-6trv9osu0hjt7lcfj4gnev6f5jk3r6sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
