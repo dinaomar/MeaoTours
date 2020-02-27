@@ -11,7 +11,7 @@ class HomeViewModel : ViewModel() {
     private val queryError:MutableLiveData<Exception> = MutableLiveData()
     val exposedData:LiveData<QuerySnapshot> get() = queryResult
     val queryDataErrorExposed:LiveData<Exception> get() = queryError
-    val isLoading : MutableLiveData<Boolean> = MutableLiveData(true)
+    var isLoading : MutableLiveData<Boolean> = MutableLiveData(true)
 
     fun startDataQuery(){
         MeaoDataBase.meaoDataBase.collection("activities")

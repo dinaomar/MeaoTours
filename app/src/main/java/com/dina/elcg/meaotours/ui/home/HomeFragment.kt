@@ -11,24 +11,27 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dina.elcg.meaotours.R
 import com.dina.elcg.meaotours.databinding.FragmentHomeBinding
+import com.dina.elcg.meaotours.ui.HomeRecyclerAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private var homeViewModel: HomeViewModel? = null
+    private lateinit var recyclerAdapter: HomeRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        val binding: FragmentHomeBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        homeViewModel.startDataQuery()
-        homeViewModel.exposedData.observe(viewLifecycleOwner, Observer {
-            
+        homeViewModel?.startDataQuery()
+        homeViewModel?.exposedData!!.observe(viewLifecycleOwner, Observer {
+            recyclerAdapter = HomeRecyclerAdapter(it)
+            homeRecyclerView.adapter = recyclerAdapter
         })
-        homeViewModel.queryDataErrorExposed.observe(viewLifecycleOwner, Observer {
+        homeViewModel?.queryDataErrorExposed!!.observe(viewLifecycleOwner, Observer {
             showErrorDialog(it.message!!)
         })
         return binding.root

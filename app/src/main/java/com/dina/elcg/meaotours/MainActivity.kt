@@ -26,5 +26,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        MeaoDataBase.meaoDataBase.collection("activities")
+            .get().addOnSuccessListener {
+                for (document in it) {
+                    Log.d("test", "this is the content ${document.data}")
+                }
+            }
     }
 }
