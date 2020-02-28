@@ -6,19 +6,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dina.elcg.meaotours.R
 import com.dina.elcg.meaotours.loadImage
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.home_item.view.*
 
 
-class HomeRecyclerAdapter(private val query: QuerySnapshot) :
+class HomeRecyclerAdapter(val query: ArrayList<QueryDocumentSnapshot>) :
     RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder>() {
 
     class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.image
         val title = view.title
         val description = view.description
+        fun bind(item:QueryDocumentSnapshot){
+            title.text = item.data["title"].toString()
+            description.text = item.data["description"].toString()
+            imageView.loadImage(item.data["image"])
+        }
 
     }
+
+    fun updateUsers(newUsers: ArrayList<QueryDocumentSnapshot>) {
+        query.clear()
+        query.addAll(newUsers)
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         HomeViewHolder(
@@ -30,12 +43,10 @@ class HomeRecyclerAdapter(private val query: QuerySnapshot) :
         )
 
     override fun getItemCount(): Int {
-        return query.size()
+        return query.size
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.imageView.loadImage(query.documents[position].data!!["image"])
-        holder.description.text = query.documents[position].data!!["description"].toString()
-        holder.title.text = query.documents[position].data!!["title"].toString()
+        holder.bind(query[position])
     }
 }
