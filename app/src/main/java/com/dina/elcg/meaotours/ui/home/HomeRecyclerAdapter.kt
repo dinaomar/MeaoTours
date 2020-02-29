@@ -1,4 +1,4 @@
-package com.dina.elcg.meaotours.ui
+package com.dina.elcg.meaotours.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,23 +7,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dina.elcg.meaotours.R
 import com.dina.elcg.meaotours.loadImage
 import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.home_item.view.*
 
 
-class HomeRecyclerAdapter(val query: ArrayList<QueryDocumentSnapshot>) :
+class HomeRecyclerAdapter(val query: ArrayList<QueryDocumentSnapshot>, val listner: ClickListner) :
     RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder>() {
 
-    class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    interface ClickListner {
+        fun onClick(item: QueryDocumentSnapshot)
+    }
+
+    class HomeViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.image
         val title = view.title
         val description = view.description
-        fun bind(item:QueryDocumentSnapshot){
+        fun bind(
+            item: QueryDocumentSnapshot,
+            listner: ClickListner
+        ) {
             title.text = item.data["title"].toString()
             description.text = item.data["description"].toString()
             imageView.loadImage(item.data["image"])
-        }
 
+            view.setOnClickListener {
+                listner.onClick(item)
+            }
+        }
     }
 
     fun updateUsers(newUsers: ArrayList<QueryDocumentSnapshot>) {
@@ -31,7 +40,6 @@ class HomeRecyclerAdapter(val query: ArrayList<QueryDocumentSnapshot>) :
         query.addAll(newUsers)
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         HomeViewHolder(
@@ -47,6 +55,6 @@ class HomeRecyclerAdapter(val query: ArrayList<QueryDocumentSnapshot>) :
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind(query[position])
+        holder.bind(query[position], listner)
     }
 }

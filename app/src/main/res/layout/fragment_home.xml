@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.dina.elcg.meaotours.ui.home.HomeViewModel" />
+            type="com.dina.elcg.meaotours.ui.shared.SharedViewModel" />
 
         <import type="android.view.View" />
     </data>

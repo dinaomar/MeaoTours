@@ -17,9 +17,26 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
+
+
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.dina.elcg.meaotours.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_events"
+        android:name="com.dina.elcg.meaotours.ui.events.EventsFragment"
         android:label="@string/title_events"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_eventss" >
+        <action
+            android:id="@+id/action_navigation_events_to_eventDetailedFragment"
+            app:destination="@id/eventDetailedFragment"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popUpTo="@id/navigation_events" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailedFragment"
+        android:name="com.dina.elcg.meaotours.ui.events.EventDetailedFragment"
+        android:label="EventDetailedFragment" >
+        <action
+            android:id="@+id/action_eventDetailedFragment_to_navigation_events"
+            app:destination="@id/navigation_events"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
 </navigation>

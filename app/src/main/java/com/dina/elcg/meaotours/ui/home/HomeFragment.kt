@@ -12,14 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dina.elcg.meaotours.R
 import com.dina.elcg.meaotours.databinding.FragmentHomeBinding
-import com.dina.elcg.meaotours.ui.HomeRecyclerAdapter
+import com.dina.elcg.meaotours.ui.shared.SharedViewModel
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeRecyclerAdapter.ClickListner {
 
-    private var homeViewModel: HomeViewModel? = null
-    var recyclerAdapter: HomeRecyclerAdapter = HomeRecyclerAdapter(arrayListOf())
+    private var homeViewModel: SharedViewModel? = null
+    var recyclerAdapter: HomeRecyclerAdapter =
+        HomeRecyclerAdapter(arrayListOf(), this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +33,7 @@ class HomeFragment : Fragment() {
             container,
             false
         )
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         homeViewModel?.startDataQuery()
 
         homeViewModel?.mutableResult!!.observe(viewLifecycleOwner, Observer {
@@ -72,5 +73,8 @@ class HomeFragment : Fragment() {
             }
             builder.create()
         }
+    }
+
+    override fun onClick(item: QueryDocumentSnapshot) {
     }
 }
